@@ -1,0 +1,21 @@
+.nav {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.btn {
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
+    background: #0b63f6;
+    box-shadow: 0 5px 0 #003cc5;
+}
+.btn:hover {
+    background: #003cc5;
+    box-shadow: none;
+    position: relative;
+    top: 5px;
+}
