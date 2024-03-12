@@ -1,35 +1,35 @@
+import { useGetFactQuery } from '../../services/factApi';
 import s from './TaskOne.module.css';
 import { useState } from 'react';
 
 function TaskOne() {
+    const { data, refetch } = useGetFactQuery();
+
     const [text, setText] = useState('');
+    const [isCleanUp, setIsCleanUp] = useState(false);
 
     // Обработчик события для кнопки
     const handleButtonClick = () => {
-        console.log('Кнопка нажата');
+        if (text !== '') {
+            refetch();
+            setText('');
+            setIsCleanUp(false);
+        } else {
+            setText(data?.fact);
+            setIsCleanUp(true);
+        }
     };
 
-    // Обработчик события для текстового поля
-    const handleTextChange = (event) => {
-        setText(event.target.value);
-    };
     return (
         <div className={s.wrapper}>
-            <p className={s.header}>
-                Блок с кнопкой и текстовым полем. По нажатию на кнопку выполнить
-                запрос к https://catfact.ninja/fact. Полученный факт нужно
-                записать в текстовое поле и установить курсор после первого
-                слова.{' '}
-            </p>
-            <input
-                type='text'
+            <textarea
                 value={text}
-                onChange={handleTextChange}
-                placeholder='Введите текст'
-                className={s.input}
-            />
+                placeholder='Узнай факт, нажми на кнопку'
+                className={s.textarea}
+            ></textarea>
+
             <button className={s.btn} onClick={handleButtonClick}>
-                Нажми на меня
+                {isCleanUp ? 'Очистить' : 'Нажми на меня'}
             </button>
         </div>
     );
