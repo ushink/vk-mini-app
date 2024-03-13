@@ -1,13 +1,40 @@
-/* eslint-disable no-unused-vars */
 import s from './TaskTwo.module.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useGetAgeQuery } from '../../services/ageApi';
 
 function TaskTwo() {
     const [name, setName] = useState('');
     const [age, setAge] = useState('');
+    const [paramName, setParamName] = useState('');
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const { data, isError, error, isLoading } = useGetAgeQuery(paramName, {
+        skip: !paramName
+    });
+
+    useEffect(() => {
+        const timerId = setTimeout(() => {
+            setParamName(name);
+        }, 3000);
+
+        return () => clearTimeout(timerId);
+    }, [name]);
+
+    useEffect(() => {
+        if (isLoading) return;
+
+        if (isError) {
+            console.error(error);
+            return;
+        }
+
+        if (data) {
+            setAge(data.age);
+        }
+    }, [data, isError, error, isLoading]);
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setParamName(name);
     };
 
     return (
