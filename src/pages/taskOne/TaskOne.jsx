@@ -1,9 +1,12 @@
-import { useGetFactQuery } from '../../services/factApi';
 import s from './TaskOne.module.css';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useGetFactQuery } from '../../services/factApi';
+
 
 function TaskOne() {
     const { data, refetch } = useGetFactQuery();
+
+    const textareaRef = useRef();
 
     const [text, setText] = useState('');
     const [isCleanUp, setIsCleanUp] = useState(false);
@@ -20,9 +23,26 @@ function TaskOne() {
         }
     };
 
+    useEffect(() => {
+        if (text) {
+            const firstSpaceIndex = text.indexOf(' ');
+
+            // Поиск позиции после первого слова
+            const cursorPosition =
+                firstSpaceIndex !== -1 ? firstSpaceIndex + 1 : text.length;
+
+            // Установка курсора после первого слова
+            textareaRef.current.setSelectionRange(
+                cursorPosition,
+                cursorPosition
+            );
+        }
+    }, [text]);
+
     return (
         <div className={s.wrapper}>
             <textarea
+                ref={textareaRef}
                 value={text}
                 placeholder='Узнай факт, нажми на кнопку'
                 className={s.textarea}
