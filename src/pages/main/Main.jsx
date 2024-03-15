@@ -1,3 +1,4 @@
+import Button from '../../components/UI/Button/Button';
 import s from './Main.module.css';
 import { useNavigate } from 'react-router';
 
@@ -7,12 +8,12 @@ function Main() {
         <div>
             <header>Select the task number to check</header>
             <div className={s.nav}>
-                <button className={s.btn} onClick={() => navigate('/taskOne')}>
+                <Button color={'blue'} onClick={() => navigate('/taskOne')}>
                     Task №1
-                </button>
-                <button className={s.btn} onClick={() => navigate('/taskTwo')}>
+                </Button>
+                <Button color={'blue'} onClick={() => navigate('/taskTwo')}>
                     Task №2
-                </button>
+                </Button>
             </div>
         </div>
     );

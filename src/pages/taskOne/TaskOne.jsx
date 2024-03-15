@@ -1,6 +1,7 @@
 import s from './TaskOne.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { useGetFactQuery } from '../../services/factApi';
+import Button from '../../components/UI/Button/Button';
 
 function TaskOne() {
     const { data, refetch } = useGetFactQuery();
@@ -10,7 +11,6 @@ function TaskOne() {
     const [text, setText] = useState('');
     const [isRefresh, setIsRefresh] = useState(false);
 
-    // Обработчик события для кнопки
     const handleButtonClick = () => {
         setText(data?.fact);
         setIsRefresh(true);
@@ -43,9 +43,9 @@ function TaskOne() {
                 className={s.textarea}
             ></textarea>
 
-            <button className={s.btn} onClick={handleButtonClick}>
+            <Button color={'blue'} onClick={handleButtonClick}>
                 {isRefresh ? 'Обновить' : 'Нажми на меня'}
-            </button>
+            </Button>
         </div>
     );
 }

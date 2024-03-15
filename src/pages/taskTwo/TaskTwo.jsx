@@ -1,6 +1,7 @@
 import s from './TaskTwo.module.css';
 import { useEffect, useState } from 'react';
 import { useGetAgeQuery } from '../../services/ageApi';
+import Button from '../../components/UI/Button/Button';
 
 function TaskTwo() {
     const [name, setName] = useState('');
@@ -54,9 +55,9 @@ function TaskTwo() {
                     placeholder='Введите ваше имя'
                     className={s.input}
                 />
-                <button className={s.btn} type='submit'>
+                <Button color={'blue'} type={'submit'} disabled={isLoading}>
                     {!isLoading ? 'Отправить' : 'Загрузка'}
-                </button>
+                </Button>
             </form>
             {age && <span className={s.text}>Ваш возраст: {age}</span>}
         </div>
