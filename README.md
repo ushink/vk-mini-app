@@ -44,3 +44,6 @@ Task №2:
 
 ### Task №2
 ![image](https://github.com/ushink/vk-mini-app/assets/131166403/287a0101-396d-4347-b6fa-6708a39517d4)
+
+### Деплой проекта на netlify
+https://main--inquisitive-strudel-67a462.netlify.app/
