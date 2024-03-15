@@ -17,6 +17,10 @@ function TaskTwo() {
     useEffect(() => {
         timerId = setTimeout(() => {
             setParamName(name);
+
+            if (!name) {
+                setAge('');
+            }
         }, 3000);
 
         return () => clearTimeout(timerId);
