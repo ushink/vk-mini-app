@@ -7,12 +7,14 @@ function TaskTwo() {
     const [age, setAge] = useState('');
     const [paramName, setParamName] = useState('');
 
+    let timerId;
+
     const { data, isError, error, isLoading } = useGetAgeQuery(paramName, {
         skip: !paramName
     });
 
     useEffect(() => {
-        const timerId = setTimeout(() => {
+        timerId = setTimeout(() => {
             setParamName(name);
         }, 3000);
 
@@ -34,7 +36,12 @@ function TaskTwo() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        clearTimeout(timerId);
         setParamName(name);
+    };
+
+    const handleChange = (e) => {
+        setName(e.target.value.replace(/[^a-zA-Z\u00C0-\u017F]/g, ''));
     };
 
     return (
@@ -43,12 +50,12 @@ function TaskTwo() {
                 <input
                     type='text'
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={handleChange}
                     placeholder='Введите ваше имя'
                     className={s.input}
                 />
                 <button className={s.btn} type='submit'>
-                    Отправить
+                    {!isLoading ? 'Отправить' : 'Загрузка'}
                 </button>
             </form>
             {age && <span className={s.text}>Ваш возраст: {age}</span>}
