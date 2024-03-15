@@ -2,25 +2,19 @@ import s from './TaskOne.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { useGetFactQuery } from '../../services/factApi';
 
-
 function TaskOne() {
     const { data, refetch } = useGetFactQuery();
 
     const textareaRef = useRef();
 
     const [text, setText] = useState('');
-    const [isCleanUp, setIsCleanUp] = useState(false);
+    const [isRefresh, setIsRefresh] = useState(false);
 
     // Обработчик события для кнопки
     const handleButtonClick = () => {
-        if (text !== '') {
-            refetch();
-            setText('');
-            setIsCleanUp(false);
-        } else {
-            setText(data?.fact);
-            setIsCleanUp(true);
-        }
+        setText(data?.fact);
+        setIsRefresh(true);
+        refetch();
     };
 
     useEffect(() => {
@@ -32,6 +26,7 @@ function TaskOne() {
                 firstSpaceIndex !== -1 ? firstSpaceIndex + 1 : text.length;
 
             // Установка курсора после первого слова
+            textareaRef.current.focus();
             textareaRef.current.setSelectionRange(
                 cursorPosition,
                 cursorPosition
@@ -49,7 +44,7 @@ function TaskOne() {
             ></textarea>
 
             <button className={s.btn} onClick={handleButtonClick}>
-                {isCleanUp ? 'Очистить' : 'Нажми на меня'}
+                {isRefresh ? 'Обновить' : 'Нажми на меня'}
             </button>
         </div>
     );
